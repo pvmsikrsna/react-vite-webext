@@ -7,15 +7,22 @@ import { r, port, isDev, log } from "./utils";
 /**
  * Stub index.html to use Vite in development
  */
+
+const PAGES_PREFIX = "pages"
+const VIEW_MAP = {
+    options : "options",
+    background : "background",
+    popup : "pages/popup"
+}
 async function stubIndexHtml() {
   const views = ["options", "popup", "background"];
 
-  for (const view of views) {
+  for (const [view, value] of Object.entries(VIEW_MAP)) {
     await fs.ensureDir(r(`extension/dist/${view}`));
-    let data = await fs.readFile(r(`src/${view}/index.html`), "utf-8");
+    let data = await fs.readFile(r(`src/${value}/index.html`), "utf-8");
     data = data
-      .replace('"./main.tsx"', `"http://localhost:${port}/${view}/main.tsx"`)
-      .replace('"./main.ts"', `"http://localhost:${port}/${view}/main.ts"`)
+      .replace('"./main.tsx"', `"http://localhost:${port}/${value}/main.tsx"`)
+      .replace('"./main.ts"', `"http://localhost:${port}/${value}/main.ts"`)
       .replace(
         '<div id="app"></div>',
         '<div id="app">Vite server did not start</div>'
