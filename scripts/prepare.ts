@@ -8,15 +8,12 @@ import { r, port, isDev, log } from "./utils";
  * Stub index.html to use Vite in development
  */
 
-const PAGES_PREFIX = "pages"
 const VIEW_MAP = {
-    options : "options",
+    options : "pages/options",
     background : "background",
     popup : "pages/popup"
 }
 async function stubIndexHtml() {
-  const views = ["options", "popup", "background"];
-
   for (const [view, value] of Object.entries(VIEW_MAP)) {
     await fs.ensureDir(r(`extension/dist/${view}`));
     let data = await fs.readFile(r(`src/${value}/index.html`), "utf-8");

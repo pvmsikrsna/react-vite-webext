@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "../styles";
+import "../../styles";
 import { OptionsApp } from "./Options";
 
 
