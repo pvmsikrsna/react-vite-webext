@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import { onMessage } from "webext-bridge";
 import browser from "webextension-polyfill";
 import { ContentApp } from "./views/ContentApp";
