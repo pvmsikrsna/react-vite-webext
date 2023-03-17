@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import { onMessage } from "webext-bridge";
 import browser from "webextension-polyfill";
 import { ContentApp } from "./views/ContentApp";
+import "./index.css"
 
 // Firefox `browser.tabs.executeScript()` requires scripts return a primitive value
 (() => {
