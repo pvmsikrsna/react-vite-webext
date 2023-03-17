@@ -1,62 +1,110 @@
 import fs from 'fs-extra'
-import type { Manifest } from 'webextension-polyfill'
+import type {Manifest} from 'webextension-polyfill'
 import type PkgType from '../package.json'
-import { isDev, port, r } from '../scripts/utils'
+import {isDev, port, r} from '../scripts/utils'
+import {format} from "date-fns";
+
+const CSP_STRING_EXAMPLES = [
+    "script-src 'self' https://cdn.firebase.com https://*.firebaseio.com; object-src 'self'",
+]
 
 export async function getManifest() {
-  const pkg = await fs.readJSON(r('package.json')) as typeof PkgType
+    const pkg = await fs.readJSON(r('package.json')) as typeof PkgType
 
-  // update this file to update this manifest.json
-  // can also be conditional based on your need
-  const manifest: Manifest.WebExtensionManifest = {
-    manifest_version: 2,
-    name: pkg.displayName || pkg.name,
-    version: pkg.version,
-    description: pkg.description,
-    browser_action: {
-      default_icon: './assets/icon-512.png',
-      default_popup: './dist/popup/index.html',
-    },
-    options_ui: {
-      page: './dist/options/index.html',
-      open_in_tab: true,
-      chrome_style: false,
-    },
-    background: {
-      page: './dist/background/index.html',
-      persistent: false,
-    },
-    icons: {
-      16: './assets/icon-512.png',
-      48: './assets/icon-512.png',
-      128: './assets/icon-512.png',
-    },
-    permissions: [
-      'tabs',
-      'storage',
-      'activeTab',
-      'http://*/',
-      'https://*/',
-    ],
-    content_scripts: [{
-      matches: ['http://*/*', 'https://*/*'],
-      js: ['./dist/contentScripts/index.global.js'],
-    }],
-    web_accessible_resources: [
-      'dist/contentScripts/style.css',
-    ],
-  }
+    // update this file to update this manifest.json
+    // can also be conditional based on your need
+    const manifest: Manifest.WebExtensionManifest = {
+        manifest_version: 3,
+        name: pkg.displayName || pkg.name,
+        // version: pkg.version,
+        // version : format(new Date(), 'MM.dd.HH.mm'),
+        version: `${format(new Date(), 'yyyy.M.d.Hm')}`,
+        description: pkg.description,
+        action: {
+            default_icon: './assets/icon-512.png',
+            default_popup: './dist/popup/index.html',
+        },
+        options_ui: {
+            page: './dist/options/index.html',
+            open_in_tab: true,
+        },
+        // background: {
+        //   page: './dist/Background/index.html',
+        //   persistent: false,
+        // },
+        icons: {
+            "16": './assets/icon-512.png',
+            "48": './assets/icon-512.png',
+            "128": './assets/icon-512.png',
+        },
+        permissions: [
+            'tabs',
+            'storage',
+            'activeTab',
+            'http://*/',
+            'https://*/',
+        ],
+        content_scripts: [{
+            matches: ['http://*/*', 'https://*/*'],
+            js: ['./dist/contentScripts/index.global.js'],
+            "css": [
+                "dist/contentScripts/style.css"
+            ]
+        }],
+        web_accessible_resources: [
+            {
+                "matches": [],
+                "extension_ids": [],
+                resources: [
+                    "dist/contentScripts/style.css",
+                    "assets/*",
+                    "dist/*",
+                    "dist/pages/*",
+                    "dist/pages/Background/*",
+                    "dist/pages/Background/*",
+                    "dist/pages/Frame/*",
+                    "dist/pages/Options/*",
+                    "dist/pages/Popup/*",
+                    "dist/pages/Frame/index.html"
+                ]
+            }
+        ],
+    }
+    let allowedSites = ``
 
-  if (isDev) {
-    // for content script, as browsers will cache them for each reload,
-    // we use a background script to always inject the latest version
-    // see src/background/contentScriptHMR.ts
-    delete manifest.content_scripts
-    manifest.permissions?.push('webNavigation')
+    if (isDev) {
+        // for content script, as browsers will cache them for each reload,
+        // we use a background script to always inject the latest version
+        // see src/background/contentScriptHMR.ts
+        var s = manifest.content_scripts
+        s.forEach(x => x.js = [])
+        manifest.permissions?.push('webNavigation')
+        // this is required on dev for Vite script to load
+        allowedSites = `http://localhost:${port}`
+        /*
 
-    // this is required on dev for Vite script to load
-    manifest.content_security_policy = `script-src \'self\' http://localhost:${port}; object-src \'self\'`
-  }
+                let list = [
+                    `script-src 'self' ${allowedSites}` ,
+                    `script-src-elem 'self' ${allowedSites}` ,
+                    `object-src  'self' `,
+                ]
 
-  return manifest
+                manifest.content_security_policy = list.join(' ; ')
+        */
+    } else {
+        //   "content_security_policy": "script-src-elem 'self' https://cdn.jsdelivr.net ; script-src 'self' https://cdn.jsdelivr.net ; object-src  'self' https://cdn.jsdelivr.net "
+        // manifest.content_security_policy = `script-src-elem 'self' https://cdn.jsdelivr.net ; script-src 'self' https://cdn.jsdelivr.net ; object-src  'self' https://cdn.jsdelivr.net `
+    }
+
+    let list = [
+        `script-src 'self' ${allowedSites}`,
+        `script-src-elem 'self' ${allowedSites}`,
+        `object-src  'self' `,
+    ]
+
+    manifest.content_security_policy = {
+        extension_pages: list.join(' ; ')
+    }
+
+    return manifest
 }
