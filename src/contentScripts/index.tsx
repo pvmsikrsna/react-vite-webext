@@ -31,10 +31,9 @@ import "./index.css"
   shadowDOM.appendChild(root);
   document.body.appendChild(container);
 
-  ReactDOM.render(
-    <React.StrictMode>
-      <ContentApp />
-    </React.StrictMode>,
-    root
-  );
+    let UI = <React.StrictMode>
+        <ContentApp/>
+    </React.StrictMode>;
+    
+    ReactDOM.createRoot(container).render(<ContentApp/>)
 })();
