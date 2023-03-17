@@ -10,7 +10,7 @@ import { r, port, isDev, log } from "./utils";
 
 const VIEW_MAP = {
     options : "pages/options",
-    background : "background",
+    // background : "background",
     popup : "pages/popup"
 }
 async function stubIndexHtml() {

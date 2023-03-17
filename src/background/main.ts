@@ -12,7 +12,7 @@ if (import.meta.hot) {
 
 browser.runtime.onInstalled.addListener((): void => {
   // eslint-disable-next-line no-console
-  console.log("Extension installed");
+  console.log("Extension using Manifest V3 installed; This is run by service worker");
 });
 
 let previousTabId = 0;
