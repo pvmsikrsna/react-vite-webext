@@ -8,10 +8,11 @@ import "./index.css"
 
 // Firefox `browser.tabs.executeScript()` requires scripts return a primitive value
 (() => {
-  console.info("[vitesse-webext] Hello world from content script");
+  console.info("[vitesse-webext]; Hello world from content script");
 
   // communication example: send previous tab title from background page
   onMessage("tab-prev", ({ data }) => {
+   debugger
     console.log(`[vitesse-webext] Navigate from page "${data}"`);
   });
 
@@ -20,7 +21,7 @@ import "./index.css"
   const root = document.createElement("div");
   const styleEl = document.createElement("link");
   const shadowDOM =
-    container.attachShadow?.({ mode: __DEV__ ? "open" : "closed" }) ||
+    container.attachShadow?.({ mode: process.env.__DEV__ ? "open" : "closed" }) ||
     container;
   styleEl.setAttribute("rel", "stylesheet");
   styleEl.setAttribute(

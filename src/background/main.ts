@@ -4,7 +4,9 @@ import browser from "webextension-polyfill";
 
 // only on dev mode
 if (import.meta.hot) {
-  // @ts-expect-error for background HMR
+    console.log(`Importing hot meta at- `, new Date())
+    // @ts-expect-error for background HMR
+    debugger
   import("/@vite/client");
   // load latest content script
   import("./contentScriptHMR");
@@ -12,13 +14,14 @@ if (import.meta.hot) {
 
 browser.runtime.onInstalled.addListener((): void => {
   // eslint-disable-next-line no-console
-  console.log("Extension using Manifest V3 installed; This is run by service worker");
+  console.log("Extension using Manifest V3 installed; This is run by service worker;");
 });
 
 let previousTabId = 0;
 
 // communication example: send previous tab title from background page
 // see shim.d.ts for type declaration
+console.log(`Adding on tab activated listener service worker;`);
 browser.tabs.onActivated.addListener(async ({ tabId }) => {
   if (!previousTabId) {
     previousTabId = tabId;

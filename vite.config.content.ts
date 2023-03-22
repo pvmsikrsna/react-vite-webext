@@ -6,6 +6,12 @@ import packageJson from "./package.json";
 // bundling the content script using Vite
 export default defineConfig({
   ...sharedConfig,
+    define: {
+        'process.env': {
+            ...process.env,
+            __DEV__: isDev,
+        }
+    },
   build: {
     watch: isDev
       ? {

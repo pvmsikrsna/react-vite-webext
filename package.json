@@ -1,8 +1,8 @@
 {
   "name": "vitesse-webext",
-  "displayName": "Vitesse WebExt",
+  "displayName": "Vitesse WebExt Template",
   "version": "0.0.1",
-  "description": "[description]",
+  "description": "React Vite Web Extension Template for testing/debugging",
   "private": true,
   "scripts": {
     "dev": "npm run clear && cross-env NODE_ENV=development run-p dev:*",

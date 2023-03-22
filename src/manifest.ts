@@ -75,8 +75,9 @@ export async function getManifest() {
         // for content script, as browsers will cache them for each reload,
         // we use a background script to always inject the latest version
         // see src/background/contentScriptHMR.ts
-        var s = manifest.content_scripts
-        s.forEach(x => x.js = [])
+        // delete manifest.content_scripts
+        // var s = manifest.content_scripts
+        // s.forEach(x => x.js = [])
         manifest.permissions?.push('webNavigation')
         // this is required on dev for Vite script to load
         allowedSites = `http://localhost:${port}`
