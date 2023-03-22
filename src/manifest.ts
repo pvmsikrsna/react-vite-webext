@@ -52,7 +52,7 @@ export async function getManifest() {
         }],
         web_accessible_resources: [
             {
-                "matches": [],
+                "matches": ["<all_urls>"],
                 "extension_ids": [],
                 resources: [
                     "dist/contentScripts/style.css",
