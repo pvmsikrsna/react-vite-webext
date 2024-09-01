@@ -19,7 +19,7 @@ async function stubIndexHtml() {
     let data = await fs.readFile(r(`src/${view}/index.html`), 'utf-8')
     data = data
       .replace('"./main.tsx"', `"http://localhost:${port}/${view}/main.tsx"`)
-      .replace('<div id="app"></div>', `<div id="app">Vite server did not start. Check port ${port}</div>`)
+      .replace('/<div id="(.+?)"></div>/', `<div id="$1">Vite server did not start. Check port ${port}</div>`)
     await fs.writeFile(r(`extension/dist/${view}/index.html`), data, 'utf-8')
     log('PRE', `stub ${view}`)
   }
