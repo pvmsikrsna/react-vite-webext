@@ -1,3 +1,5 @@
+import browser from "webextension-polyfill";
+
 export const Sidepanel = () => {
   return <main className="w-[300px] px-4 py-5 text-center text-gray-700">
     <div>Popup</div>

@@ -1,7 +1,7 @@
-import "../styles";
 import React from "react";
-import {Popup} from "./Popup";
 import {createRoot} from "react-dom/client";
+import "../styles";
+import {Popup} from "./Popup";
 
 let container = createRoot(document.querySelector('#root') as HTMLElement)
 let UI = <Popup/>;

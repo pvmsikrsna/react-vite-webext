@@ -3,7 +3,7 @@ import "../styles";
 import {OptionsApp} from "./Options";
 
 
-let container = createRoot(document.querySelector('#root') as HTMLElement);
+let container = createRoot(document.querySelector('#app') as HTMLElement);
 let UI =  <OptionsApp />;
 container.render(UI)
 /*

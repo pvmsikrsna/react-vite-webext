@@ -15,7 +15,10 @@ export const sharedConfig: UserConfig = {
     __NAME__: JSON.stringify(packageJson.name),
   },
   plugins: [
-    react({ fastRefresh: false }),
+    react({
+      fastRefresh: true,
+      // jsxRuntime: 'classic'
+    }),
     AutoImport({
       imports: [
         {
