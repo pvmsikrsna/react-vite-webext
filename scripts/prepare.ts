@@ -11,7 +11,6 @@ async function stubIndexHtml() {
   const views = [
     'options',
     'popup',
-    'background',
     'sidepanel',
   ]
 
@@ -20,7 +19,7 @@ async function stubIndexHtml() {
     let data = await fs.readFile(r(`src/${view}/index.html`), 'utf-8')
     data = data
       .replace('"./main.ts"', `"http://localhost:${port}/${view}/main.ts"`)
-      .replace('<div id="app"></div>', '<div id="app">Vite server did not start</div>')
+      .replace('<div id="app"></div>', `<div id="app">Vite server did not start. Check port ${port}</div>`)
     await fs.writeFile(r(`extension/dist/${view}/index.html`), data, 'utf-8')
     log('PRE', `stub ${view}`)
   }
@@ -33,6 +32,7 @@ function writeManifest() {
 writeManifest()
 
 if (isDev) {
+  console.log(`Stubbing index.html`)
   stubIndexHtml()
   chokidar.watch(r('src/**/*.html'))
     .on('change', () => {

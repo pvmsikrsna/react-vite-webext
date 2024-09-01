@@ -1,19 +1,14 @@
-import { dirname, relative } from 'path'
-import { defineConfig, UserConfig } from 'vite'
+import {dirname, relative} from 'path'
+import {defineConfig, UserConfig} from 'vite'
 import react from "@vitejs/plugin-react";
-import Icons from 'unplugin-icons/vite'
-import IconsResolver from 'unplugin-icons/resolver'
 import AutoImport from 'unplugin-auto-import/vite'
-import WindiCSS from 'vite-plugin-windicss'
-import windiConfig from './windi.config'
-import { r, port, isDev } from './scripts/utils'
-
+import {isDev, port, r} from './scripts/utils'
+import packageJson from './package.json'
+import UnoCSS from 'unocss/vite'
 export const sharedConfig: UserConfig = {
   root: r('src'),
   resolve: {
-    alias: {
-      '~/': `${r('src')}/`,
-    },
+  
   },
   define: {
     __DEV__: isDev,
@@ -33,7 +28,7 @@ export const sharedConfig: UserConfig = {
     }),
 
     // https://github.com/unocss/unocss
-    UnoCSS(),
+    // UnoCSS(),
 
     // rewrite assets to use relative path
     {
@@ -77,7 +72,7 @@ export default defineConfig(({ command }) => ({
     },
     rollupOptions: {
       input: {
-        background: r("src/background/index.html"),
+        // background: r("src/background/index.html"),
         options: r("src/options/index.html"),
         popup: r("src/popup/index.html"),
         sidepanel: r("src/sidepanel/index.html"),

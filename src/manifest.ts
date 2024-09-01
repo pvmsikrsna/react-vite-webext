@@ -47,7 +47,7 @@ export async function getManifest() {
           '<all_urls>',
         ],
         js: [
-          'dist/contentScripts/index.global.js',
+          'dist/contentScripts/index.content.js',
         ],
       },
     ],

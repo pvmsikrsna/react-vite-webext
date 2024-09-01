@@ -10,3 +10,5 @@ export const isFirefox = process.env.EXTENSION === 'firefox'
 export function log(name: string, message: string) {
   console.log(black(bgCyan(` ${name} `)), message)
 }
+
+console.log(`Node Env = ${process.env.NODE_ENV}`)

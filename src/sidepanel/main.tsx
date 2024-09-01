@@ -1,12 +1,10 @@
-import "../styles";
-import React from "react";
-import {Popup} from "./Popup";
+import {Sidepanel} from "./Sidepanel";
 import {createRoot} from "react-dom/client";
+import "../styles";
 
 let container = createRoot(document.querySelector('#root') as HTMLElement)
-let UI = <Popup/>;
+let UI = <Sidepanel/>;
 container.render(UI)
-
 /*
 ReactDOM.render(
   <React.StrictMode>

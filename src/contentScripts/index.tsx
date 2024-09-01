@@ -1,16 +1,16 @@
 /* eslint-disable no-console */
 import React from "react";
-import ReactDOM from "react-dom";
-import { onMessage } from "webext-bridge";
+import {createRoot} from "react-dom/client";
+import {onMessage} from "webext-bridge/content-script";
 import browser from "webextension-polyfill";
-import { ContentApp } from "./views/ContentApp";
+import {ContentApp} from "./views/ContentApp";
 
 // Firefox `browser.tabs.executeScript()` requires scripts return a primitive value
 (() => {
   console.info("[vitesse-webext] Hello world from content script");
 
   // communication example: send previous tab title from background page
-  onMessage("tab-prev", ({ data }) => {
+  onMessage("tab-prev", ({data}) => {
     console.log(`[vitesse-webext] Navigate from page "${data}"`);
   });
 
@@ -19,7 +19,7 @@ import { ContentApp } from "./views/ContentApp";
   const root = document.createElement("div");
   const styleEl = document.createElement("link");
   const shadowDOM =
-    container.attachShadow?.({ mode: __DEV__ ? "open" : "closed" }) ||
+    container.attachShadow?.({mode: __DEV__ ? "open" : "closed"}) ||
     container;
   styleEl.setAttribute("rel", "stylesheet");
   styleEl.setAttribute(
@@ -30,10 +30,9 @@ import { ContentApp } from "./views/ContentApp";
   shadowDOM.appendChild(root);
   document.body.appendChild(container);
 
-  ReactDOM.render(
+  createRoot(root as HTMLElement).render(
     <React.StrictMode>
-      <ContentApp />
-    </React.StrictMode>,
-    root
+      <ContentApp/>
+    </React.StrictMode>
   );
 })();
