@@ -2,7 +2,8 @@ import {Sidepanel} from "./Sidepanel";
 import {createRoot} from "react-dom/client";
 import "../styles";
 
-let container = createRoot(document.querySelector('#app') as HTMLElement)
+const elementId = `webtools-app-sidepanel`
+let container = createRoot(document.querySelector(`#${elementId}`) as HTMLElement)
 let UI = <Sidepanel/>;
 container.render(UI)
 /*
