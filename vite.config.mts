@@ -16,7 +16,7 @@ export const sharedConfig: UserConfig = {
   },
   plugins: [
     react({
-      fastRefresh: true,
+      fastRefresh: false,
       // jsxRuntime: 'classic'
     }),
     AutoImport({

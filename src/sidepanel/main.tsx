@@ -2,7 +2,7 @@ import {Sidepanel} from "./Sidepanel";
 import {createRoot} from "react-dom/client";
 import "../styles";
 
-let container = createRoot(document.querySelector('#root') as HTMLElement)
+let container = createRoot(document.querySelector('#app') as HTMLElement)
 let UI = <Sidepanel/>;
 container.render(UI)
 /*
