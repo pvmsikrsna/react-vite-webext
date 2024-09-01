@@ -9,3 +9,4 @@
 
 #### Raise an issue
 - [`vite-react-plugin` Preamble Issues](https://github.com/vitejs/vite-plugin-react/issues?q=is%3Aissue+preamble)
+- https://github.com/vitejs/vite-plugin-react/issues/223
