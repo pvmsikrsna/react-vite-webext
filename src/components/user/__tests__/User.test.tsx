@@ -1,6 +1,6 @@
+import 'whatwg-fetch';
 import { cleanup, render, screen } from "@testing-library/react";
 import { http, HttpResponse, type RequestHandler } from "msw";
-import 'whatwg-fetch';
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { User } from "../User";
 import { setupServer } from "msw/node";

@@ -17,7 +17,7 @@ describe('Button tests', async () => {
 
   test("Button, display children and function called", async () => {
     const mockFunction = vi.fn();
-    const {user, getByRole} = setup(<Button onClick={mockFunction}>a</Button>);
+    const {user} = setup(<Button onClick={mockFunction}>a</Button>);
     const target = screen.getByRole("button");
     expect(target).toHaveTextContent("a")
     await user.click(target);
@@ -26,7 +26,7 @@ describe('Button tests', async () => {
 
   it("Button, display children and function called", async () => {
     const mockFunction = vi.fn();
-    const {user, getByRole} = setup(<Button onClick={mockFunction}>b</Button>);
+    const {user} = setup(<Button onClick={mockFunction}>b</Button>);
     const target = screen.getByRole("button");
     expect(target).toHaveTextContent("b")
     await user.dblClick(target);
