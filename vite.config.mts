@@ -4,11 +4,16 @@ import react from "@vitejs/plugin-react";
 import AutoImport from 'unplugin-auto-import/vite'
 import {isDev, port, r} from './scripts/utils'
 import packageJson from './package.json'
+import { configDefaults } from "vitest/config";
+import path from 'path'
+
 import UnoCSS from 'unocss/vite'
 export const sharedConfig: UserConfig = {
   root: r('src'),
   resolve: {
-  
+    alias: {
+      '@/': `${path.resolve(__dirname, 'src')}/`
+    }
   },
   define: {
     __DEV__: isDev,
@@ -49,6 +54,26 @@ export const sharedConfig: UserConfig = {
     ],
     exclude: [
     ],
+  },
+  test: {
+    environment: "jsdom",
+    setupFiles: ['./setupTests.ts'],
+    mockReset: true,
+    globals: true,
+    // setupFiles: "./src/setupTests.ts",
+    watch: false,
+    // Need to concat with config defaults otherwise node_modules get tested
+    exclude: [...configDefaults.exclude, "src/e2e/*"],
+    coverage: {
+      provider: "istanbul",
+      exclude: [".eslintrc.cjs", "src/index.tsx", "playwright.config.ts", ".github/*"],
+      all: true,
+      lines: 100,
+      functions: 100,
+      branches: 100,
+      statements: 100,
+      reporter: ["json", "lcov", "text", "cobertura"],
+    },
   },
 }
 

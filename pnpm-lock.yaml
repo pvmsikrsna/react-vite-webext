@@ -58,6 +58,9 @@ devDependencies:
   '@types/react-dom':
     specifier: ^18.0.11
     version: 18.0.11
+  '@types/testing-library__jest-dom':
+    specifier: ^6.0.0
+    version: 6.0.0
   '@types/webextension-polyfill':
     specifier: ^0.12.0
     version: 0.12.0
@@ -118,6 +121,9 @@ devDependencies:
   fs-extra:
     specifier: ^11.2.0
     version: 11.2.0
+  happy-dom:
+    specifier: ^15.7.3
+    version: 15.7.3
   jsdom:
     specifier: ^24.1.1
     version: 24.1.1
@@ -156,7 +162,10 @@ devDependencies:
     version: 5.4.2(@types/node@22.5.0)
   vitest:
     specifier: ^2.0.5
-    version: 2.0.5(@types/node@22.5.0)(jsdom@24.1.1)
+    version: 2.0.5(@types/node@22.5.0)(happy-dom@15.7.3)(jsdom@24.1.1)
+  whatwg-fetch:
+    specifier: ^3.6.20
+    version: 3.6.20
 
 packages:
 
@@ -3017,6 +3026,13 @@ packages:
     resolution: {integrity: sha512-jmIUGWrAiwu3dZpxntxieC+1n/5c3mjrImkmOSQ2NC5uP6cYO4aAZDdSmRcI5C1oiTmqlZGHC+/NmJrKogbP5A==}
     dev: true
 
+  /@types/testing-library__jest-dom@6.0.0:
+    resolution: {integrity: sha512-bnreXCgus6IIadyHNlN/oI5FfX4dWgvGhOPvpr7zzCYDGAPIfvyIoAozMBINmhmsVuqV0cncejF2y5KC7ScqOg==}
+    deprecated: This is a stub types definition. @testing-library/jest-dom provides its own type definitions, so you do not need this installed.
+    dependencies:
+      '@testing-library/jest-dom': 6.5.0
+    dev: true
+
   /@types/tough-cookie@4.0.5:
     resolution: {integrity: sha512-/Ad8+nIOV7Rl++6f1BdKxFSMgmoqEoYbHRpPcx3JEfv8VRsQe9Z4mCXeJBzxs7mbHY/XOZZuXlRNfhpVPbs6ZA==}
     dev: true
@@ -3688,7 +3704,7 @@ packages:
       std-env: 3.7.0
       test-exclude: 7.0.1
       tinyrainbow: 1.2.0
-      vitest: 2.0.5(@types/node@22.5.0)(jsdom@24.1.1)
+      vitest: 2.0.5(@types/node@22.5.0)(happy-dom@15.7.3)(jsdom@24.1.1)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -3710,7 +3726,7 @@ packages:
     dependencies:
       eslint: 8.0.0
       typescript: 5.5.4
-      vitest: 2.0.5(@types/node@22.5.0)(jsdom@24.1.1)
+      vitest: 2.0.5(@types/node@22.5.0)(happy-dom@15.7.3)(jsdom@24.1.1)
     dev: true
 
   /@vitest/expect@2.0.5:
@@ -6818,6 +6834,15 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       duplexer: 0.1.2
+    dev: true
+
+  /happy-dom@15.7.3:
+    resolution: {integrity: sha512-w3RUaYNXFJX5LiNVhOJLK4GqCB1bFj1FvELtpon3HrN8gUpS09V0Vvm4/BBRRj7mLUE1+ch8PKv1JxEp/0IHjA==}
+    engines: {node: '>=18.0.0'}
+    dependencies:
+      entities: 4.5.0
+      webidl-conversions: 7.0.0
+      whatwg-mimetype: 3.0.0
     dev: true
 
   /has-bigints@1.0.2:
@@ -10408,7 +10433,7 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitest@2.0.5(@types/node@22.5.0)(jsdom@24.1.1):
+  /vitest@2.0.5(@types/node@22.5.0)(happy-dom@15.7.3)(jsdom@24.1.1):
     resolution: {integrity: sha512-8GUxONfauuIdeSl5f9GTgVEpg5BTOlplET4WEDaeY2QBiN8wSm68vxN/tb5z405OwppfoCavnwXafiaYBC/xOA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -10444,6 +10469,7 @@ packages:
       chai: 5.1.1
       debug: 4.3.6
       execa: 8.0.1
+      happy-dom: 15.7.3
       jsdom: 24.1.1
       magic-string: 0.30.11
       pathe: 1.1.2
@@ -10592,6 +10618,15 @@ packages:
     engines: {node: '>=18'}
     dependencies:
       iconv-lite: 0.6.3
+    dev: true
+
+  /whatwg-fetch@3.6.20:
+    resolution: {integrity: sha512-EqhiFU6daOA8kpjOWTL0olhVOF3i7OrFzSYiGsEMB8GcXS+RrzauAERX65xMeNWVqxA6HXH2m69Z9LaKKdisfg==}
+    dev: true
+
+  /whatwg-mimetype@3.0.0:
+    resolution: {integrity: sha512-nt+N2dzIutVRxARx1nghPKGv1xHikU7HKdfafKkLNLindmPU/ch3U31NOCGGA/dmPcmb1VlofO0vnKAcsm0o/Q==}
+    engines: {node: '>=12'}
     dev: true
 
   /whatwg-mimetype@4.0.0:
