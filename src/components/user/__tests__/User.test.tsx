@@ -1,4 +1,3 @@
-/*
 import { cleanup, render, screen } from "@testing-library/react";
 import { http, HttpResponse, type RequestHandler } from "msw";
 import 'whatwg-fetch';
@@ -54,4 +53,4 @@ describe("Fetch from api", () => {
     // show not found
     expect(await screen.findByText("Not Found")).not.toBeUndefined();
   });
-});*/
+});

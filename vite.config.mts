@@ -89,7 +89,7 @@ export default defineConfig(({ command }) => ({
   },
   test: {
   environment: "jsdom",
-    setupFiles: ['./setupTests.ts'],
+    setupFiles: ['./src/tests/setupTests.ts'],
     mockReset: true,
     globals: true,
     // setupFiles: "./src/setupTests.ts",
