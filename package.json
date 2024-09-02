@@ -26,6 +26,8 @@
     "clear": "rimraf --glob extension/dist extension/manifest.json extension.*",
     "lint": "eslint --cache .",
     "test": "vitest test",
+    "coverage": "vitest run --coverage",
+    "preview": "vite preview",
     "test:e2e": "playwright test",
     "postinstall": "simple-git-hooks",
     "typecheck": "tsc --noEmit"
