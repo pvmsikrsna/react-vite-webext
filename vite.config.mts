@@ -54,27 +54,7 @@ export const sharedConfig: UserConfig = {
     ],
     exclude: [
     ],
-  },
-  test: {
-    environment: "jsdom",
-    setupFiles: ['./setupTests.ts'],
-    mockReset: true,
-    globals: true,
-    // setupFiles: "./src/setupTests.ts",
-    watch: false,
-    // Need to concat with config defaults otherwise node_modules get tested
-    exclude: [...configDefaults.exclude, "src/e2e/*"],
-    coverage: {
-      provider: "istanbul",
-      exclude: [".eslintrc.cjs", "src/index.tsx", "playwright.config.ts", ".github/*"],
-      all: true,
-      lines: 100,
-      functions: 100,
-      branches: 100,
-      statements: 100,
-      reporter: ["json", "lcov", "text", "cobertura"],
-    },
-  },
+  }
 }
 
 export default defineConfig(({ command }) => ({
@@ -108,7 +88,23 @@ export default defineConfig(({ command }) => ({
     },
   },
   test: {
+  environment: "jsdom",
+    setupFiles: ['./setupTests.ts'],
+    mockReset: true,
     globals: true,
-    environment: 'jsdom',
+    // setupFiles: "./src/setupTests.ts",
+    watch: false,
+    // Need to concat with config defaults otherwise node_modules get tested
+    exclude: [...configDefaults.exclude, "src/e2e/*"],
+    coverage: {
+    provider: "istanbul",
+      exclude: [".eslintrc.cjs", "src/index.tsx", "playwright.config.ts", ".github/*"],
+      all: true,
+      lines: 100,
+      functions: 100,
+      branches: 100,
+      statements: 100,
+      reporter: ["json", "lcov", "text", "cobertura"],
   },
+},
 }))
