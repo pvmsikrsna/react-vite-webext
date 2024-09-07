@@ -1,16 +1,16 @@
-import { defineConfig } from "vite";
-import { sharedConfig } from "./vite.config";
-import { r, isDev } from "./scripts/utils";
+import {defineConfig} from "vite";
+import {sharedConfig} from "./vite.config";
+import {r, isDev} from "./scripts/utils";
 import packageJson from "./package.json";
+import deepmerge from "deepmerge";
 
 // bundling the content script using Vite
-export default defineConfig({
-  ...sharedConfig,
+export default defineConfig(({command}) => deepmerge(sharedConfig, {
   build: {
     watch: isDev
       ? {
-          include: [r("src/contentScripts/**/*"), r("src/components/**/*")],
-        }
+        include: [r("src/contentScripts/**/*"), r("src/components/**/*")],
+      }
       : undefined,
     outDir: r("extension/dist/contentScripts"),
     cssCodeSplit: false,
@@ -29,4 +29,4 @@ export default defineConfig({
     },
   },
   plugins: [...sharedConfig.plugins!],
-});
+}));

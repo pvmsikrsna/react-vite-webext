@@ -2,8 +2,24 @@ import { dirname, relative } from "path";
 import { defineConfig, UserConfig } from "vite";
 import AutoImport from "unplugin-auto-import/vite";
 import { r, port, isDev } from "./scripts/utils";
-import react from "@vitejs/plugin-react";
+// import react from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react-swc";
+import deepmerge from "deepmerge";
+const jsxPluginReact17 = {
+  name: 'jsx-react-17',
+  setup(build) {
+    const fs = require('fs')
+    const babel = require('@babel/core')
+    const plugin = require('@babel/plugin-transform-react-jsx')
+      .default({}, { runtime: 'automatic' })
 
+    build.onLoad({ filter: /\.jsx$/ }, async (args) => {
+      const jsx = await fs.promises.readFile(args.path, 'utf8')
+      const result = babel.transformSync(jsx, { plugins: [plugin] })
+      return { contents: result.code }
+    })
+  },
+}
 export const sharedConfig: UserConfig = {
   root: r("src"),
   resolve: {
@@ -17,9 +33,8 @@ export const sharedConfig: UserConfig = {
   plugins: [
     // React fast refresh doesn't work, cause injecting of preambleCode into index.html
     // TODO: fix it
-    react({
-      
-    }),
+    jsxPluginReact17,
+    react({ }),
     AutoImport({
       imports: [
         {
@@ -47,8 +62,7 @@ export const sharedConfig: UserConfig = {
   },
 };
 
-export default defineConfig(({ command }) => ({
-  ...sharedConfig,
+export default defineConfig(({ command }) => (deepmerge(sharedConfig, {
   base: command === "serve" ? `http://localhost:${port}/` : "/dist/",
   server: {
     port,
@@ -73,4 +87,4 @@ export default defineConfig(({ command }) => ({
     },
   },
   plugins: [...sharedConfig.plugins!],
-}));
+})));
